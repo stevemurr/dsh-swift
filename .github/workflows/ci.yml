@@ -1,0 +1,21 @@
+name: Swift
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v7.0.1
+      - name: Show toolchain
+        run: swift --version
+      - name: Test SDK
+        run: swift test
+      - name: Build command-line consumer
+        run: swift build --package-path Examples/ModelCatalog
+      - name: Build SwiftUI example app
+        run: swift build --package-path Examples/FolderChat
